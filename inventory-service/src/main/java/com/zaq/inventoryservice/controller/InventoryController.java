@@ -1,12 +1,12 @@
 package com.zaq.inventoryservice.controller;
 
+import com.zaq.inventoryservice.dto.InventoryResponse;
 import com.zaq.inventoryservice.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,8 +15,8 @@ public class InventoryController {
 
     private final InventoryService inventoryService;
 
-    @GetMapping("/{sku-code}")
-    public boolean isInStock(@PathVariable("sku-code") String skuCode){
-        return inventoryService.isInStock(skuCode);
+    @GetMapping
+    public List<InventoryResponse> isInStock(@RequestParam List<String> skuCodeList){
+        return inventoryService.isInStock(skuCodeList);
     }
 }
